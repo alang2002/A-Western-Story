@@ -1,6 +1,7 @@
 import { BaseLevel } from "../core/BaseLevel.js";
 import { Area } from "../components/Area.js";
 import { Enemy } from "../entities/Enemy.js";
+import { Snake } from "../entities/Snake.js";
 
 export class BonusLevel4 extends BaseLevel
 {
@@ -58,13 +59,14 @@ export class BonusLevel4 extends BaseLevel
         //Looping background with level
         this.loopBackground('background', 720, 420, 4);
 
-        //Adding static images
-        // this.addStaticImage('house', 50, 525);
-
         //Player is an essential part to the level 
         //Therefore, there should be no need to reimplement the player inside a level.
         this.setPlayerPosition(25, 0);
 
+        //Adding static images
+        // this.addStaticImage('house', 50, 525);
+
+        
         //You really don't need to set a variable to a function.
         // new Enemy(this, 500, 200);
 
@@ -72,6 +74,19 @@ export class BonusLevel4 extends BaseLevel
         //Scene, ImageKey, CenterX (Position), CenterY (Position), Collision Body Width, Collision Body Height
         // let nextLevelGoal = new Area(this, 'house', 1100, 525, 75, 104);
         // nextLevelGoal.whenTouched(this.player, () => {this.nextLevel()});
+    }
+
+    update ()
+    {  
+        super.update();
+
+        if (this.count == 5 && Math.random() < .2 && this.statics.list.length < 220)
+        {
+            if (Math.random() > .6)
+            {
+                new Snake(this, Math.random() * 2200 + 50, 0);
+            }
+        }
     }
 
     nextLevel()
